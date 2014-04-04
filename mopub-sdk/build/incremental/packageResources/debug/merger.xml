@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="D:\apps\mopub-android-sdk\mopub-sdk\src\main\res" />
+        <source path="D:\apps\mopub-android-sdk\mopub-sdk\build\res\rs\debug" />
+        <source path="D:\apps\mopub-android-sdk\mopub-sdk\build\res\generated\debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="D:\apps\mopub-android-sdk\mopub-sdk\src\debug\res" />
+    </dataSet>
+
+</merger>
