@@ -1,3 +1,11 @@
+## Version 2.1 (May 15, 2014)
+
+  - Added custom events for Facebook ads. `FacebookBanner` and `FacebookInterstitial` can be found in the extras directory of the SDK (`/extras/src/com/mopub/mobileads`). For more information, please see the [help page for Facebook custom events](http://help.mopub.com/customer/portal/articles/1552301-how-to-integrate-facebook-audience-network-using-custom-events).
+  - Significant improvements to video ads
+    - Added overlay including a "Learn More" button, video length, and time left until the video may be skipped
+    - Added support for companion banners (shown upon video completion)
+  - Added Logcat warnings (and Toasts for debug builds) in cases where all necessary Activity permissions haven't been added to the `AndroidManifest`
+
 ## Version 2.0 (Apr 22, 2014)
 
   - **Native Ads** public release; integration instructions and documentation available on the [GitHub wiki](https://github.com/mopub/mopub-android-sdk/wiki/Native-Ads-Integration)
@@ -8,16 +16,21 @@
       
       	```      	      	
     <activity android:name="com.mopub.common.MoPubBrowser"
-			android:configChanges="keyboardHidden|orientation"/>
+				android:configChanges="keyboardHidden|orientation"/>
     <activity android:name="com.mopub.mobileads.MoPubActivity"
                 android:configChanges="keyboardHidden|orientation"/>
     <activity android:name="com.mopub.mobileads.MraidActivity"
-                android:configChanges="keyboardHidden|
+                android:configChanges="keyboardHidden|orientation"/>
 	<activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity"
                 android:configChanges="keyboardHidden|orientation"/>
 		```  
   - Upgraded the bundled `android-support-v4` library to r19.1.
       - **Note for Maven users:** Newer versions of the `android-support-v4` artifact are unavailable on Maven central, so we have included a small script to update the version in your local artifact repository. Please navigate to the `mopub-sdk` directory, and run `scripts/mavenize_support_library`.
+      
+###### Version 2.0.1 (Apr 30, 2014)
+
+  - Fixed cases where VAST Video Interstitials were failing to fire `InterstitialAdListener` callbacks; fixes [GitHub issue #78](https://github.com/mopub/mopub-android-sdk/issues/78)
+  - Simplified click tracking logic for HTML ads
 
 ## Version 1.17 (Nov 20, 2013)
 

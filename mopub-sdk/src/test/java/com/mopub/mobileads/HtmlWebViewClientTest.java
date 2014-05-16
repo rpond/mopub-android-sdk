@@ -39,7 +39,6 @@ import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.webkit.WebView;
-
 import com.mopub.common.MoPubBrowser;
 import com.mopub.mobileads.test.support.SdkTestRunner;
 import org.junit.Before;
@@ -235,14 +234,14 @@ public class HtmlWebViewClientTest {
     }
 
     @Test
-    public void shouldOverrideUrlLoading_withClickTrackingRedirect_withUserClick_shouldChangeUrl() throws Exception {
+    public void shouldOverrideUrlLoading_withClickTrackingRedirect_withUserClick_shouldNotChangeUrl() throws Exception {
         String validUrl = "http://www.mopub.com";
         stub(htmlWebView.wasClicked()).toReturn(true);
 
         subject.shouldOverrideUrlLoading(htmlWebView, validUrl);
 
         Intent startedActivity = assertActivityStarted();
-        assertThat(startedActivity.getStringExtra(MoPubBrowser.DESTINATION_URL_KEY)).isEqualTo("clickthrough&r=http%3A%2F%2Fwww.mopub.com");
+        assertThat(startedActivity.getStringExtra(MoPubBrowser.DESTINATION_URL_KEY)).isEqualTo(validUrl);
     }
 
     @Test
@@ -384,17 +383,16 @@ public class HtmlWebViewClientTest {
     }
 
     @Test
-    public void onPageStarted_whenLoadedUrlStartsWithRedirectAndHasClickthrough_withUserClick_shouldOpenInBrowser() throws Exception {
+    public void onPageStarted_whenLoadedUrlStartsWithRedirectAndHasClickthrough_withUserClick_shouldNotChangeUrl_shouldOpenInBrowser() throws Exception {
         stub(htmlWebView.wasClicked()).toReturn(true);
         String url = "redirectUrlToLoad";
-        String expectedTrackingUrl = "clickthrough" + "&r=" + url;
         WebView view = mock(WebView.class);
         subject.onPageStarted(view, url, null);
 
         verify(view).stopLoading();
 
         Intent intent = Robolectric.getShadowApplication().getNextStartedActivity();
-        assertThat(intent.getStringExtra(MoPubBrowser.DESTINATION_URL_KEY)).isEqualTo(expectedTrackingUrl);
+        assertThat(intent.getStringExtra(MoPubBrowser.DESTINATION_URL_KEY)).isEqualTo(url);
         assertThat(intent.getFlags() & Intent.FLAG_ACTIVITY_NEW_TASK).isNotEqualTo(0);
         assertThat(intent.getComponent().getClassName()).isEqualTo("com.mopub.common.MoPubBrowser");
     }
