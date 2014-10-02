@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 apply plugin: 'com.github.ben-manes.versions'
@@ -11,3 +12,19 @@ buildscript {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.5-beta-6'
     }
 }
+=======
+buildscript {
+    repositories {   
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.1+'
+        classpath 'org.robolectric:robolectric-gradle-plugin:0.12.+'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
+>>>>>>> upstream/master
