@@ -1,7 +1,1 @@
-<<<<<<< HEAD
 include ':mopub-sdk'
-=======
-rootProject.name = 'mopub-android'
-include ':mopub-sdk', ':mopub-sample'
-
->>>>>>> upstream/master
