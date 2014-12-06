@@ -7,8 +7,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.14.4'
+        classpath 'com.android.tools.build:gradle:1.0.0-rc4'
         classpath 'org.codehaus.groovy:groovy-backports-compat23:2.4.0-beta-2'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.5'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.6'
     }
 }
