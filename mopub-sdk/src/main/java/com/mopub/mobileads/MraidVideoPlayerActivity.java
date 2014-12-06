@@ -57,7 +57,9 @@ public class MraidVideoPlayerActivity extends BaseVideoPlayerActivity implements
 
     @Override
     protected void onDestroy() {
-        mBaseVideoController.onDestroy();
+        if(mBaseVideoController != null) {
+            mBaseVideoController.onDestroy();
+        }
         super.onDestroy();
     }
 
