@@ -6,7 +6,7 @@ repositories {
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         versionCode 1
@@ -41,8 +41,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:21.0.2'
-    compile 'com.android.support:support-annotations:21.0.2'
+    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.android.support:support-annotations:21.0.3'
 }
 
 apply plugin: 'maven'
