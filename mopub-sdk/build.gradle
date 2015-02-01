@@ -9,8 +9,8 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        versionCode 1
-        versionName "3.3.0"
+        versionCode 20
+        versionName "3.4.0"
         minSdkVersion 9
         targetSdkVersion 21
     }
@@ -43,6 +43,7 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.android.support:support-annotations:21.0.3'
+    compile files('libs/mopub-volley-1.0.0.jar')
 }
 
 apply plugin: 'maven'
