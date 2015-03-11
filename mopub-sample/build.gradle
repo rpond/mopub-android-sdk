@@ -9,7 +9,7 @@ group = 'com.mopub'
 description = '''MoPub SDK'''
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 22
     buildToolsVersion '21.1.1'
 
     defaultConfig {
