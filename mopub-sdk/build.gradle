@@ -12,7 +12,7 @@ android {
         versionCode 1
         versionName "3.6.1"
         minSdkVersion 9
-        targetSdkVersion 21
+        targetSdkVersion 22
     }
 
     sourceSets {
@@ -43,7 +43,7 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:22.0.0'
     compile 'com.android.support:support-annotations:22.0.0'
-    compile 'com.mopub.volley:mopub-volley:1.0.0'
+    compile 'com.mopub.volley:mopub-volley:1.1.0'
 }
 
 apply plugin: 'maven'
