@@ -6,13 +6,14 @@ repositories {
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "22.0.0"
+    buildToolsVersion '22.0.1'
 
     defaultConfig {
-        versionCode 1
-        versionName "3.6.1"
+        versionCode 24
+        versionName "3.7.0"
         minSdkVersion 9
         targetSdkVersion 22
+        consumerProguardFiles 'proguard.txt'
     }
 
     sourceSets {
@@ -41,11 +42,17 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:22.0.0'
-    compile 'com.android.support:support-annotations:22.0.0'
+    compile 'com.android.support:support-v4:22.1.1'
+    compile 'com.android.support:support-annotations:22.1.'
     compile 'com.mopub.volley:mopub-volley:1.1.0'
 }
 
 apply plugin: 'maven'
+
+// Don't run the Robolectric Unit Tests.
+check.dependsOn.remove("test")
+check.dependsOn.remove("unitTest")
+check.dependsOn.remove("testDebug")
+check.dependsOn.remove("unitTestDebug")
 
 apply from: 'https://raw.githubusercontent.com/robbypond/gradle-mvn-push/master/gradle-mvn-push.gradle'
