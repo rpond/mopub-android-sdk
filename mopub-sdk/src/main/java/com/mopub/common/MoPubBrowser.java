@@ -35,7 +35,6 @@ import static com.mopub.common.util.Drawables.RIGHT_ARROW;
 import static com.mopub.common.util.Drawables.UNLEFT_ARROW;
 import static com.mopub.common.util.Drawables.UNRIGHT_ARROW;
 import static com.mopub.common.util.Intents.deviceCanHandleIntent;
-import static com.mopub.common.util.Intents.isDeepLink;
 
 public class MoPubBrowser extends Activity {
     public static final String DESTINATION_URL_KEY = "URL";
@@ -100,8 +99,8 @@ public class MoPubBrowser extends Activity {
                 }
 
                 final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                if (isDeepLink(url) && deviceCanHandleIntent(MoPubBrowser.this, intent)) {
+                if (UrlAction.FOLLOW_DEEP_LINK.shouldTryHandlingUrl(Uri.parse(url))
+                        && deviceCanHandleIntent(MoPubBrowser.this, intent)) {
                     startActivity(intent);
                     finish();
                     return true;

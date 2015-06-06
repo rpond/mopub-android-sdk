@@ -1,16 +1,22 @@
-apply plugin: 'com.android.library'
+// This buildscript will assemble the MoPub SDK into an AAR.
 
 repositories {
     jcenter()
 }
+
+apply plugin: 'com.android.library'
+
+group = 'com.mopub'
+
+description = '''MoPub SDK'''
 
 android {
     compileSdkVersion 22
     buildToolsVersion '22.0.1'
 
     defaultConfig {
-        versionCode 24
-        versionName "3.7.0"
+        versionCode 25
+        versionName "3.8.0"
         minSdkVersion 9
         targetSdkVersion 22
         consumerProguardFiles 'proguard.txt'
@@ -42,8 +48,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:22.1.1'
-    compile 'com.android.support:support-annotations:22.1.'
+    compile 'com.android.support:support-v4:22.2.0'
+    compile 'com.android.support:support-annotations:22.2.0'
     compile 'com.mopub.volley:mopub-volley:1.1.0'
 }
 
