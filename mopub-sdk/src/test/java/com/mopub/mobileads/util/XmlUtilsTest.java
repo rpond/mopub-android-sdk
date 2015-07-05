@@ -1,4 +1,4 @@
-package com.mopub.mobileads.util.vast;
+package com.mopub.mobileads.util;
 
 import com.mopub.common.test.support.SdkTestRunner;
 
@@ -170,7 +170,18 @@ public class XmlUtilsTest {
     }
 
     @Test
-    public void testGetListFromDocument() throws Exception {
+    public void getAttributeValue_shouldReturnCorrectValue() throws Exception {
+        Node child = XmlUtils.getFirstMatchingChildNode(purchaseOrderNode, "aw:PurchaseOrder");
+
+        String purchaseOrderNumber = XmlUtils.getAttributeValue(child, "aw:PurchaseOrderNumber");
+        String orderDate = XmlUtils.getAttributeValue(child, "aw:OrderDate");
+
+        assertThat(purchaseOrderNumber).isEqualTo("99503");
+        assertThat(orderDate).isEqualTo("1999-10-20");
+    }
+
+    @Test
+    public void getListFromDocument_shouldReturnCorrectValue() throws Exception {
         // Get all the "aw:PurchaseOrder" nodes. If any of them have an "aw:OrderDate" attribute, extract a Date.
         List<Date> orderDates = XmlUtils.getListFromDocument(testDoc, "aw:PurchaseOrder", "aw:OrderDate", null, new XmlUtils.NodeProcessor<Date>() {
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -200,7 +211,7 @@ public class XmlUtilsTest {
     }
 
     @Test
-    public void testGetFirstMatchFromDocument() throws Exception {
+    public void getFirstMatchFromDocument_shouldReturnCorrectValue() throws Exception {
         // Get the first "aw:PurchaseOrder" nodes. If it has an "aw:OrderDate" attribute, extract a Date.
         Date orderDate = XmlUtils.getFirstMatchFromDocument(testDoc, "aw:PurchaseOrder", "aw:OrderDate", null, new XmlUtils.NodeProcessor<Date>() {
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -222,7 +233,7 @@ public class XmlUtilsTest {
     }
 
     @Test
-    public void testGetStringDataAsList_shouldFindDeepNested() throws Exception {
+    public void getStringDataAsList_shouldFindDeepNested() throws Exception {
         final List<String> strings = XmlUtils.getStringDataAsList(testDoc, "aw:Comment", null, null);
         assertThat(strings.size()).isEqualTo(2);
         assertThat(strings.get(0)).isEqualTo("Confirm this is electric");
@@ -230,7 +241,7 @@ public class XmlUtilsTest {
     }
 
     @Test
-    public void testGetFirstMatchingStringData_shouldFindFirstMatch() throws Exception {
+    public void getFirstMatchingStringData_shouldFindFirstMatch() throws Exception {
         final String firstMatch = XmlUtils.getFirstMatchingStringData(testDoc, "aw:Comment", null, null);
         assertThat(firstMatch).isNotNull();
         assertThat(firstMatch).isEqualTo("Confirm this is electric");

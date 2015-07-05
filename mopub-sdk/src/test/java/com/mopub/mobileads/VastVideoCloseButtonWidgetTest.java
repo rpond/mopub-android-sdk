@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.mopub.common.test.support.SdkTestRunner;
@@ -23,8 +22,6 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.robolectric.Robolectric;
 
-import static android.view.Gravity.CENTER_VERTICAL;
-import static android.view.Gravity.RIGHT;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.eq;
@@ -34,9 +31,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(SdkTestRunner.class)
-public class ToolbarWidgetTest {
+public class VastVideoCloseButtonWidgetTest {
     private Context context;
-    private ToolbarWidget subject;
+    private VastVideoCloseButtonWidget subject;
 
     private static final String ICON_IMAGE_URL = "iconimageurl";
 
@@ -56,63 +53,48 @@ public class ToolbarWidgetTest {
         Networking.setRequestQueueForTesting(mockRequestQueue);
         Networking.setImageLoaderForTesting(mockImageLoader);
         context = Robolectric.buildActivity(Activity.class).create().get();
-    }
-
-    private void initializeSubject() {
-        subject = new ToolbarWidget.Builder(context)
-                .weight(1f)
-                .widgetGravity(CENTER_VERTICAL | RIGHT)
-                .defaultText("Close")
-                .drawable(new CloseButtonDrawable())
-                .visibility(View.GONE)
-                .build();
+        subject = new VastVideoCloseButtonWidget(context);
     }
 
     @Test
-    public void updateImage_imageListenerOnResponse_shouldUseImageBitmap() throws Exception {
-        initializeSubject();
-
+    public void updateCloseButtonIcon_imageListenerOnResponse_shouldUseImageBitmap() throws Exception {
         when(mockImageContainer.getBitmap()).thenReturn(mockBitmap);
 
-        subject.updateImage(ICON_IMAGE_URL);
+        subject.updateCloseButtonIcon(ICON_IMAGE_URL);
 
         verify(mockImageLoader).get(eq(ICON_IMAGE_URL), imageCaptor.capture());
         ImageLoader.ImageListener listener = imageCaptor.getValue();
         listener.onResponse(mockImageContainer, true);
-        assertThat(((BitmapDrawable) subject.getImageViewDrawable()).getBitmap()).isEqualTo(mockBitmap);
+        assertThat(((BitmapDrawable) subject.getImageView().getDrawable()).getBitmap()).isEqualTo(mockBitmap);
     }
 
     @Test
     public void updateImage_imageListenerOnResponseWhenReturnedBitMapIsNull_shouldUseDefaultCloseButtonDrawable() throws Exception {
-        initializeSubject();
-
         final ImageView imageViewSpy = spy(subject.getImageView());
         subject.setImageView(imageViewSpy);
 
         when(mockImageContainer.getBitmap()).thenReturn(null);
 
-        subject.updateImage(ICON_IMAGE_URL);
+        subject.updateCloseButtonIcon(ICON_IMAGE_URL);
 
         verify(mockImageLoader).get(eq(ICON_IMAGE_URL), imageCaptor.capture());
         ImageLoader.ImageListener listener = imageCaptor.getValue();
         listener.onResponse(mockImageContainer, true);
         verify(imageViewSpy, never()).setImageBitmap(any(Bitmap.class));
-        assertThat(subject.getImageViewDrawable()).isInstanceOf(CloseButtonDrawable.class);
+        assertThat(subject.getImageView().getDrawable()).isInstanceOf(CloseButtonDrawable.class);
     }
 
     @Test
     public void updateImage_imageListenerOnErrorResponse_shouldUseDefaultCloseButtonDrawable() throws Exception {
-        initializeSubject();
-
         final ImageView imageViewSpy = spy(subject.getImageView());
         subject.setImageView(imageViewSpy);
 
-        subject.updateImage(ICON_IMAGE_URL);
+        subject.updateCloseButtonIcon(ICON_IMAGE_URL);
 
         verify(mockImageLoader).get(eq(ICON_IMAGE_URL), imageCaptor.capture());
         ImageLoader.ImageListener listener = imageCaptor.getValue();
         listener.onErrorResponse(new VolleyError());
         verify(imageViewSpy, never()).setImageBitmap(any(Bitmap.class));
-        assertThat(subject.getImageViewDrawable()).isInstanceOf(CloseButtonDrawable.class);
+        assertThat(subject.getImageView().getDrawable()).isInstanceOf(CloseButtonDrawable.class);
     }
 }

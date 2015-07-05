@@ -8,6 +8,7 @@ import com.mopub.common.util.DeviceUtils.ForceOrientation;
 import com.mopub.common.util.Strings;
 import com.mopub.mobileads.VastAbsoluteProgressTracker;
 import com.mopub.mobileads.VastFractionalProgressTracker;
+import com.mopub.mobileads.util.XmlUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
